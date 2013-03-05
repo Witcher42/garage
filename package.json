@@ -25,6 +25,7 @@
     "node": ">= 0.8.0"
   },
   "dependencies": {
+    "grunt-contrib-jshint": ">=0.1.1",
     "grunt-crane": ">=0.0.1",
     "grunt": "~0.4.0"
   },
