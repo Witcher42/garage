@@ -1,0 +1,86 @@
+{
+    "baseHost": "gdotjs.org",
+    "baseUrl": "http://static.gdotjs.org/",
+    "src": "src/",
+    "dest": "build/",
+    "temp": "temp/",
+    "compress": false,
+    "cache-expire": 604800000,
+    "lint": {
+        "files": [
+            "src/core/boot.js",
+            "src/core/deferred.js",
+            "src/core/loader.js",
+            "src/core/util.js",
+            "src/util/**/*.js",
+            "src/app/**/*.js",
+            "bin/tasks/*.js"
+        ]
+    },
+    "concat" : {
+        "g.js": {
+            "files": [
+                {
+                    "dest": "<%= src %>g.js",
+                    "src": [
+                        "<%= src %>core/es5-safe.js",
+                        "<%= src %>core/json2.js",
+                        "<%= src %>core/boot.js",
+                        "<%= src %>core/util.js",
+                        "<%= src %>core/deferred.js",
+                        "<%= src %>core/loader.js"
+                    ]
+                },
+                {
+                    "dest" : "<%= src %>g-modern.js",
+                    "src": [
+                        "<%= src %>core/boot.js",
+                        "<%= src %>core/util.js",
+                        "<%= src %>core/deferred.js",
+                        "<%= src %>core/loader.js"
+                    ]
+                }
+            ]
+        }
+    },
+    "uglify": {
+        "g.js": {
+            "files": [
+                {
+                    "dest": "<%= src %>g.js",
+                    "src": "<%= src %>g.js"
+                },
+                {
+                    "dest": "<%= src %>g-modern.js",
+                    "src": "<%= src %>g-modern.js"
+                }
+            ]
+        }
+    },
+    "watch": {
+        "files": "src/**/*",
+        "tasks": ["jshint", "build:<%= file %>", "rsync:<%= file %>"]
+    },
+    "jshint": {
+        "options": {
+            "browser": true,
+            "scripturl": true
+        }
+    },
+    "builder": [
+        ["config.js", "build-config"],
+        ["g.js", "copy:<%= file %>", "rsync:<%= file %>"],
+        ["g-modern.js", "copy:<%= file %>", "rsync:<%= file %>"],
+        ["core/*.js", "concat", "<% if (compress) { %>uglify:g.js<% } %>"],
+        ["**/*.js", "build-js:<%= file %>", "build-config:<%= file %>"],
+        ["**/*.css", "build-css:<%= file %>", "build-config:<%= file %>"],
+        ["**/*.less", "build-less:<%= file %>", "build-config:<%= file %>"],
+        ["**/*", "copy:<%= file %>"]
+    ],
+    "servers": [
+        {
+            "host": "localhost",
+            "dest": "/var/www/static/"
+        }
+    ]
+}

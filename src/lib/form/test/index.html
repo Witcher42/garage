@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>form test</title>
+    <meta charset="UTF-8" />
+    <script src="/g.js"  charset="UTF-8"></script>
+    <script src="/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="/less/bootstrap/bootstrap.less">
+<style>
+.help-inline.error {
+    color: #b94a48;
+}
+</style>
+</head>
+<body>
+    <section>
+        <form class="form-horizontal" id="form2">
+            <h2>Normal Controls</h2>
+            <div class="control-group">
+                <label class="control-label" for="email">Email</label>
+                <div class="controls">
+                    <input id="email" name="email" type="text" placeholder="Email"
+                        data-required='[true, "请输入邮箱地址"]'
+                        data-format='["email", "请输入正确格式的E-mail地址"]'
+                        data-tip-span="#email-tip-span"
+                    >
+                    <span class="help-inline" id="email-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                    <input id="password" name="password" type="password" placeholder="Password"
+                        data-required='[true, "请输入密码"]'
+                        data-max-length='[30, "密码长度最多30位"]'
+                        data-min-length='[6, "密码长度至少6位"]'
+                        data-tip-span="#password-tip-span"
+                    >
+                    <span class="help-inline" id="password-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="range1">Range</label>
+                <div class="controls">
+                    <input type="text" name="from" placeholder="From" class="input-mini"
+                        data-max="100"
+                        data-min="0"
+                        data-required='[true, "Please input From"]'
+                        data-next="to"
+                        data-tip-span="#range-tip-span"
+                    >
+                    <input type="text" name="to" placeholder="To" class="input-mini"
+                        data-max="100"
+                        data-min="0"
+                        data-required='[true, "Please input To"]'
+                        data-compare='["this > from", "no less than `From`"]'
+                        data-tip-span="#range-tip-span"
+                    >
+                    <span class="help-inline" id="range-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Check Boxes</label>
+                <div class="controls">
+                    <label class="checkbox inline">
+                        <input name="checkbox" type="checkbox" value="checkbox1"
+                            data-required='[true, "请输入密码"]'
+                            data-min-length='[2, "请至少选择2项"]'
+                            data-tip-span="#checkbox-tip-span"
+                        >
+                        CheckBox 1
+                    </label>
+                    <label class="checkbox inline">
+                        <input name="checkbox" type="checkbox" value="checkbox2">
+                        CheckBox 2
+                    </label>
+
+                    <label class="checkbox inline">
+                        <input name="checkbox" type="checkbox" value="checkbox3">
+                        CheckBox 3
+                    </label>
+
+                    <label class="checkbox inline">
+                        <input name="checkbox" type="checkbox" value="checkbox4">
+                        CheckBox 4
+                    </label>
+                    <input type="text" name="checkbox" placeholder="Other" class="input-small">
+                    <span class="help-inline" id="checkbox-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Radioes</label>
+                <div class="controls">
+                    <label class="radio inline">
+                        <input name="radio" type="radio" value="radio1"
+                            data-required='[true, "请选择"]'
+                            data-tip-span="#radio-tip-span"
+                        >
+                        Radio 1
+                    </label>
+                    <label class="radio inline">
+                        <input name="radio" type="radio" value="radio2">
+                        Radio 2
+                    </label>
+                    <label class="radio inline">
+                        <input name="radio" type="radio" value="radio3">
+                        Radio 3
+                    </label>
+                    <label class="radio inline">
+                        <input name="radio" type="radio" value="radio4">
+                        Radio 4
+                    </label>
+                    <span class="help-inline" id="radio-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Single Select</label>
+                <div class="controls">
+                    <select name="single-select"
+                        data-required='[true, "请选择一个"]'
+                        data-tip-span="#single-select-tip-span"
+                    >
+                        <option value="">请选择</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <span class="help-inline" id="single-select-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Multiple Select</label>
+                <div class="controls">
+                    <select name="multiple-select" multiple
+                        data-required='[true, "请选择"]'
+                        data-min-length='[2, "请至少选择两个"]'
+                        data-max-length='[3, "最多选择三个"]'
+                        data-tip-span="#multiple-select-tip-span"
+                    >
+                        <option value="">请选择</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                    </select>
+                    <span class="help-inline" id="multiple-select-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Multiple Select</label>
+                <div class="controls">
+                    <textarea name="textarea" placeholder="Write something..."
+                        data-required='[true, "写点什么呗"]'
+                        data-max-length='[100, "你话太多啦"]'
+                        data-min-length='[10, "再说点呗"]'
+                        data-tip-span="#textarea-tip-span"
+                    ></textarea>
+                    <span class="help-inline" id="textarea-tip-span"></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn">Sign in</button>
+                </div>
+            </div>
+        </form>
+    </section>
+<script>
+G.use(['../ui1.js', 'jquery'], function (Form, $) {
+    $('form').each(function () {
+        var form = new Form({
+            $el: $(this),
+            onSubmit: function (e) {
+                e.preventDefault();
+                form.validate();
+            }
+        });
+        console.log(form);
+    });
+});
+</script>
+</body>
+</html>
