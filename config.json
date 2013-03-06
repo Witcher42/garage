@@ -59,7 +59,7 @@
     },
     "watch": {
         "files": "src/**/*",
-        "tasks": ["jshint", "build:<%= file %>", "rsync:<%= file %>"]
+        "tasks": ["jshint", "build:<%= file %>"]
     },
     "jshint": {
         "options": {
@@ -68,14 +68,14 @@
         }
     },
     "builder": [
-        ["config.js", "build-config"],
+        ["config.js", "build-config", "rsync:<%= file %>"],
+        ["**/*.as", ""],
         ["g.js", "copy:<%= file %>", "rsync:<%= file %>"],
         ["g-modern.js", "copy:<%= file %>", "rsync:<%= file %>"],
-        ["core/*.js", "concat", "<% if (compress) { %>uglify:g.js<% } %>"],
-        ["**/*.js", "build-js:<%= file %>", "build-config:<%= file %>"],
-        ["**/*.css", "build-css:<%= file %>", "build-config:<%= file %>"],
-        ["**/*.less", "build-less:<%= file %>", "build-config:<%= file %>"],
-        ["**/*", "copy:<%= file %>"]
+        ["**/*.js", "build-js:<%= file %>", "build-config:<%= file %>", "rsync:<%= file %>"],
+        ["**/*.css", "build-css:<%= file %>", "build-config:<%= file %>", "rsync:<%= file %>"],
+        ["**/*.less", "build-less:<%= file %>", "build-config:<%= file %>", "rsync:<%= file %>"],
+        ["**/*", "copy:<%= file %>", "rsync:<%= file %>"]
     ],
     "servers": [
         {
