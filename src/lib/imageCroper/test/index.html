@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ImageCroper test</title>
+    <meta charset="UTF-8" />
+    <script src="/g.js"  charset="UTF-8"></script>
+    <script src="/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="/less/bootstrap/bootstrap.less">
+</head>
+<body>
+<div id="ImageCroper"></div>
+<img src="http://octodex.github.com/images/codercat.jpg" alt="" id="Img" style="height: 500px; width: 500px;">
+<script>
+G.use(['lib/swfobject/swfobject', 'jquery', '../imageCroper'], function (SWFObject, $, ImageCroper) {
+    var imageCroper = new ImageCroper({
+        $el: '#Img'
+    });
+});
+</script>
+</body>
+</html>
