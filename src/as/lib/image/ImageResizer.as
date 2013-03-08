@@ -21,7 +21,6 @@
     import flash.utils.Timer;
     import EncodeCompleteEvent;
     import EncodeProgressEvent;
-    import ExternalCall;
 
     /*
     Technique adapted from Kun Janos (http://kun-janos.ro/blog/?p=107)

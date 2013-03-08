@@ -1,4 +1,4 @@
-package
+package lib.image
 {
 	import flash.events.Event;
 	import flash.utils.ByteArray;

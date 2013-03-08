@@ -2,7 +2,7 @@ package lib.util
 {
     import flash.external.ExternalInterface;
 
-    internal class ExternalCall {
+    public class ExternalCall {
         public static function Call(callback:String, ... rest):* {
             var escapedRest:Array = new Array();
             for each (var i:* in rest)

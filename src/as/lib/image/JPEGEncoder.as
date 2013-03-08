@@ -1,5 +1,4 @@
-﻿
-package
+﻿package lib.image
 {
 	import EncodeCompleteEvent;
 	import EncodeProgressEvent;

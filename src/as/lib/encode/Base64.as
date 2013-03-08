@@ -1,4 +1,4 @@
-package
+package lib.encode
 {
     import flash.utils.ByteArray;
 
