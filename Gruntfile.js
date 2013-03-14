@@ -6,5 +6,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-crane');
 
-    grunt.registerTask('default', ['jshint', 'build', 'rsync']);
+    grunt.registerTask('default', ['jshint', 'build', 'deploy']);
 };
