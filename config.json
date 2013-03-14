@@ -1,6 +1,4 @@
 {
-    "baseHost": "gdotjs.org",
-    "baseUrl": "http://static.gdotjs.org/",
     "src": "src/",
     "dest": "build/",
     "temp": "temp/",
@@ -67,20 +65,53 @@
             "scripturl": true
         }
     },
+    "build": {
+        "local": {
+            "compress": false
+        }
+    },
     "builder": [
-        ["config.js", "build-config", "rsync:<%= file %>"],
+        ["config.js", "build-config", "deploy:<%= file %>"],
         ["**/*.as", ""],
-        ["g.js", "copy:<%= file %>", "rsync:<%= file %>"],
-        ["g-modern.js", "copy:<%= file %>", "rsync:<%= file %>"],
-        ["**/*.js", "build-js:<%= file %>", "build-config:<%= file %>", "rsync:<%= file %>"],
-        ["**/*.css", "build-css:<%= file %>", "build-config:<%= file %>", "rsync:<%= file %>"],
-        ["**/*.less", "build-less:<%= file %>", "build-config:<%= file %>", "rsync:<%= file %>"],
-        ["**/*", "copy:<%= file %>", "rsync:<%= file %>"]
+        ["**/*.tpl", "build-tpl:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
+        ["g.js", "copy:<%= file %>", "deploy:<%= file %>"],
+        ["g-modern.js", "copy:<%= file %>", "deploy:<%= file %>"],
+        ["**/*.cmb.js", "build-cmb-js:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
+        ["**/*.js", "build-js:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
+        ["**/*.css", "build-css:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
+        ["**/*.less", "build-less:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
+        ["**/*", "copy:<%= file %>", "deploy:<%= file %>"]
     ],
     "servers": [
         {
             "host": "localhost",
             "dest": "/var/www/static/"
         }
-    ]
+    ],
+    "deploy": {
+        "local": [
+            {
+                "host": "localhost",
+                "dest": "/var/www/static/"
+            }
+        ],
+        "test": [
+            {
+                "host": "localhost",
+                "dest": "/var/www/static_test/"
+            }
+        ],
+        "sim": [
+            {
+                "host": "localhost",
+                "dest": "/var/www/static_sim/"
+            }
+        ],
+        "online": [
+            {
+                "host": "localhost",
+                "dest": "/var/www/static_online"
+            }
+        ]
+    }
 }
