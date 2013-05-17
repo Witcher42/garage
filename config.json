@@ -1,117 +1,39 @@
 {
+    "rootpaths": ["http://static.gdotjs.org/"],
     "src": "src/",
     "dest": "build/",
     "temp": "temp/",
     "compress": false,
-    "cache-expire": 604800000,
+    "cacheExpire": 604800000,
+    "versionTemplate": "<%= url.href.replace(url.ext, '.__' + version + '__' + url.ext) %>",
+    "builder": [
+        ["config.json", "builder/config"],
+        ["**/*.tpl", "builder/template"],
+        ["g.js", "builder/copy"],
+        ["g-modern.js", "builder/copy"],
+        ["**/*.js", "builder/javascript"],
+        ["**/*.css", "builder/css"],
+        ["**/*.less", "builder/less"],
+        ["**/*.as", "builder/nothing"],
+        ["**/*", "builder/copy"]
+    ],
+    "deploy": {
+        "local": [
+            ["jianbin@127.0.0.1::static", "-avR", "--password-file=/Users/jianbin/.rsync_password"]
+        ]
+    },
     "lint": {
         "files": [
-            "src/core/boot.js",
-            "src/core/deferred.js",
-            "src/core/loader.js",
-            "src/core/util.js",
             "src/util/**/*.js",
             "src/app/**/*.js",
             "bin/tasks/*.js"
         ]
     },
-    "concat" : {
-        "g.js": {
-            "files": [
-                {
-                    "dest": "<%= src %>g.js",
-                    "src": [
-                        "<%= src %>core/es5-safe.js",
-                        "<%= src %>core/json2.js",
-                        "<%= src %>core/boot.js",
-                        "<%= src %>core/util.js",
-                        "<%= src %>core/deferred.js",
-                        "<%= src %>core/loader.js"
-                    ]
-                },
-                {
-                    "dest" : "<%= src %>g-modern.js",
-                    "src": [
-                        "<%= src %>core/boot.js",
-                        "<%= src %>core/util.js",
-                        "<%= src %>core/deferred.js",
-                        "<%= src %>core/loader.js"
-                    ]
-                }
-            ]
-        }
-    },
-    "uglify": {
-        "g.js": {
-            "files": [
-                {
-                    "dest": "<%= src %>g.js",
-                    "src": "<%= src %>g.js"
-                },
-                {
-                    "dest": "<%= src %>g-modern.js",
-                    "src": "<%= src %>g-modern.js"
-                }
-            ]
-        }
-    },
-    "watch": {
-        "files": "src/**/*",
-        "tasks": ["jshint", "build:<%= file %>"]
-    },
+    "watch": {},
     "jshint": {
         "options": {
             "browser": true,
             "scripturl": true
         }
-    },
-    "build": {
-        "local": {
-            "compress": false
-        }
-    },
-    "builder": [
-        ["config.js", "build-config", "deploy:<%= file %>"],
-        ["**/*.as", ""],
-        ["**/*.tpl", "build-tpl:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
-        ["g.js", "copy:<%= file %>", "deploy:<%= file %>"],
-        ["g-modern.js", "copy:<%= file %>", "deploy:<%= file %>"],
-        ["**/*.cmb.js", "build-cmb-js:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
-        ["**/*.js", "build-js:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
-        ["**/*.css", "build-css:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
-        ["**/*.less", "build-less:<%= file %>", "build-config:<%= file %>", "deploy:<%= file %>"],
-        ["**/*", "copy:<%= file %>", "deploy:<%= file %>"]
-    ],
-    "servers": [
-        {
-            "host": "localhost",
-            "dest": "/var/www/static/"
-        }
-    ],
-    "deploy": {
-        "local": [
-            {
-                "host": "localhost",
-                "dest": "/var/www/static/"
-            }
-        ],
-        "test": [
-            {
-                "host": "localhost",
-                "dest": "/var/www/static_test/"
-            }
-        ],
-        "sim": [
-            {
-                "host": "localhost",
-                "dest": "/var/www/static_sim/"
-            }
-        ],
-        "online": [
-            {
-                "host": "localhost",
-                "dest": "/var/www/static_online"
-            }
-        ]
     }
 }

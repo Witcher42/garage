@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ImageCroper test</title>
+    <meta charset="UTF-8" />
+    <script src="/g.js"  charset="UTF-8"></script>
+    <script src="/config.js"></script>
+    <link rel="stylesheet" type="text/css" href="/less/bootstrap/bootstrap.less">
+    <script charset="utf-8" src="http://map.soso.com/api/v2/main.js"></script>
+</head>
+<body>
+<div id="map"></div>
+<script>
+G.use(['jquery'], function ($) {
+    console.log(soso);
+    var Panorama = soso.maps.Panorama;
+    console.log(Panorama);
+    var panorama = new Panorama();
+});
+</script>
+</body>
+</html>

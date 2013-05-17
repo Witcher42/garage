@@ -6,6 +6,7 @@
     <script src="/g.js"  charset="UTF-8"></script>
     <script src="/config.js"></script>
     <link rel="stylesheet" type="text/css" href="/less/bootstrap/bootstrap.less">
+    <script src="/test.cmb.js"></script>
 <style>
 .help-inline.error {
     color: #b94a48;
@@ -169,16 +170,16 @@
         </form>
     </section>
 <script>
-G.use(['../ui1.js', 'jquery'], function (Form, $) {
+G.use(['../theme-1.js', 'jquery'], function (Form, $) {
+    window.$ = $;
     $('form').each(function () {
         var form = new Form({
             $el: $(this),
             onSubmit: function (e) {
                 e.preventDefault();
-                form.validate();
+                this.validate();
             }
         });
-        console.log(form);
     });
 });
 </script>

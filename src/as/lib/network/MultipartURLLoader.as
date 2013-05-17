@@ -23,7 +23,7 @@ package lib.network
     import flash.utils.clearInterval;
     import flash.utils.Timer;
     import flash.events.TimerEvent;
-
+    import lib.util.ExternalCall;
 
     /**
      * Multipart URL Loader
@@ -71,6 +71,7 @@ package lib.network
             _fileName = fileName;
             repeated = false;
             _uploadSize = 0;
+            var self:MultipartURLLoader = this;
         }
 
         public function upload(request:URLRequest, uploadDataFieldName:String = "Filedata"):void {
@@ -126,7 +127,6 @@ package lib.network
 
         private function doSend():void
         {
-            trace('doSend');
             var urlRequest:URLRequest = new URLRequest();
             urlRequest.url = this._request.url;
             //urlRequest.contentType = 'multipart/form-data; boundary=' + getBoundary();
@@ -170,19 +170,16 @@ package lib.network
                 progressTimer.stop();
                 timeoutTimer.stop();
             });
-            trace('start to upload');
             try {
                 timeoutTimer.start();
                 progressTimer.start();
                 _loader.load(urlRequest);
             } catch (ex:Error) {
-                trace('IOError in dosend');
                 dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, false, false, "Exception: " + ex.message));
                 progressTimer.stop();
                 timeoutTimer.stop();
                 this.destroy();
             }
-
         }
 
         private function constructPostDataAsync():void
@@ -303,7 +300,8 @@ package lib.network
 
         private function onComplete( event: Event ): void
         {
-            trace('onComplete');
+            var self:MultipartURLLoader = this;
+
             if (this._httpStatus === 200) {
                 dispatchEvent(event);
                 if (this._loader && this._loader.data && this._loader.data.length > 0) {
@@ -357,10 +355,10 @@ package lib.network
         {
             trace('addListener');
             if (this._loader != null) {
-                this._loader.addEventListener( Event.COMPLETE, this.onComplete, false, 0, false );
-                this._loader.addEventListener( IOErrorEvent.IO_ERROR, this.onIOError, false, 0, false );
-                this._loader.addEventListener( HTTPStatusEvent.HTTP_STATUS, this.onHTTPStatus, false, 0, false );
-                this._loader.addEventListener( SecurityErrorEvent.SECURITY_ERROR, this.onSecurityError, false, 0, false );
+                this._loader.addEventListener( Event.COMPLETE, this.onComplete );
+                this._loader.addEventListener( IOErrorEvent.IO_ERROR, this.onIOError );
+                this._loader.addEventListener( HTTPStatusEvent.HTTP_STATUS, this.onHTTPStatus );
+                this._loader.addEventListener( SecurityErrorEvent.SECURITY_ERROR, this.onSecurityError );
             }
         }
 
@@ -425,6 +423,5 @@ package lib.network
 
             this.asyncWriteTimeoutId = undefined;
         }
-
     }
 }

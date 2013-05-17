@@ -1,7 +1,7 @@
 ﻿package lib.image
 {
-	import EncodeCompleteEvent;
-	import EncodeProgressEvent;
+	import lib.image.EncodeCompleteEvent;
+	import lib.image.EncodeProgressEvent;
 
 	import flash.display.BitmapData;
 	import flash.events.EventDispatcher;
@@ -12,7 +12,7 @@
 	[Event(name=EncodeCompleteEvent.COMPLETE, type="EncodeCompleteEvent")]
 	[Event(name=EncodeProgressEvent.PROGRESS, type="EncodeProgressEvent")]
 
-	public class JPEGEncoder extends EventDispatcher
+	public class AsyncJPEGEncoder extends EventDispatcher
 	{
 		private var width:int;
 		private var height:int;

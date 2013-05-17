@@ -1,0 +1,360 @@
+{
+    "files": {
+        "as/lib/crypto/Base64.as": {},
+        "as/lib/crypto/MD5.as": {},
+        "as/lib/image/AsyncJPEGEncoder.as": {},
+        "as/lib/image/EncodeCompleteEvent.as": {},
+        "as/lib/image/EncodeProgressEvent.as": {},
+        "as/lib/image/ImageResizer.as": {},
+        "as/lib/image/ImageResizerEvent.as": {},
+        "as/lib/image/JPGEncoder.as": {},
+        "as/lib/image/PNGEncoder.as": {},
+        "as/lib/network/MultipartURLLoader.as": {},
+        "as/lib/util/BitString.as": {},
+        "as/lib/util/ExternalCall.as": {},
+        "as/lib/util/IntUtil.as": {},
+        "config.json": {
+            "timestamp": 1368610912000
+        },
+        "g.js": {
+            "timestamp": 1368604920000
+        },
+        "less/app/test/sub/test.css": {
+            "children": [
+                "less/app/test/whatever.jpg"
+            ],
+            "timestamp": 1367843490000
+        },
+        "less/app/test/test.cmb.css": {
+            "children": [
+                "less/app/test/test1.css",
+                "less/app/test/test2.css",
+                "less/app/test/sub/test.css",
+                "less/app/test2/test.css"
+            ],
+            "timestamp": 1367843490000
+        },
+        "less/app/test/test1.css": {
+            "children": [
+                "less/app/whatever2.png"
+            ],
+            "timestamp": 1367843490000
+        },
+        "less/app/test/test2.css": {
+            "children": [
+                "less/app/test/whatever.png"
+            ],
+            "timestamp": 1367843490000
+        },
+        "less/app/test/whatever.jpg": {
+            "timestamp": 1367843489000
+        },
+        "less/app/test/whatever.png": {
+            "timestamp": 1367843489000
+        },
+        "less/app/test2/test.css": {
+            "children": [
+                "less/background.png"
+            ],
+            "timestamp": 1367843490000
+        },
+        "less/app/whatever.jpg": {
+            "timestamp": 1367843489000
+        },
+        "less/app/whatever2.png": {
+            "timestamp": 1367843489000
+        },
+        "less/background.png": {
+            "timestamp": 1367843489000
+        },
+        "lib/async/async.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/event/event.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/expect/expect.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/form/field.js": {
+            "timestamp": 1368610912000
+        },
+        "lib/form/form.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/form/test/index.html": {
+            "timestamp": 1368083022000
+        },
+        "lib/form/test/signup-form.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/form/test/test.tpl": {
+            "timestamp": 1368610676000
+        },
+        "lib/form/theme-1.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/form/validator.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/hogan/hogan.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/as/ImageCroper.as": {},
+        "lib/imageCroper/as/ImageFile.as": {},
+        "lib/imageCroper/as/build.xml": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/as/makefile": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/border.gif": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/imageCroper.css": {
+            "children": [],
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/imageCroper.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/swf/ImageCroper.swf": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/test.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/test/codercat.jpg": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/test/index.html": {
+            "timestamp": 1368083022000
+        },
+        "lib/imageCroper/test/test.jpg": {
+            "timestamp": 1368083022000
+        },
+        "lib/jquery/jquery-1.8.2.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/map/test/index.html": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/debug.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/diff.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/events.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/fs.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/path.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/process.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/progress.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/browser/tty.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/context.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/hook.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/interfaces/bdd.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/interfaces/exports.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/interfaces/index.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/interfaces/qunit.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/interfaces/tdd.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/mocha.css": {
+            "children": [],
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/mocha.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/ms.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/base.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/doc.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/dot.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/html-cov.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/html.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/index.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/json-cov.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/json-stream.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/json.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/landing.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/list.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/markdown.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/min.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/nyan.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/progress.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/spec.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/tap.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/teamcity.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/templates/coverage.jade": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/templates/menu.jade": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/templates/script.html": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/templates/style.html": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/reporters/xunit.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/runnable.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/runner.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/suite.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/template.html": {
+            "timestamp": 1368083022000
+        },
+        "lib/mocha/utils.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/swfobject/swfobject.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/underscore/underscore.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/uploader/as/ExternalCall.as": {},
+        "lib/uploader/as/FileItem.as": {},
+        "lib/uploader/as/MultipartURLLoader.as": {},
+        "lib/uploader/as/SWFUpload.as": {},
+        "lib/uploader/as/makefile": {
+            "timestamp": 1368083022000
+        },
+        "lib/uploader/flash-backend.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/uploader/html5-backend.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/uploader/swfupload-2.5.3.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/uploader/test/index.html": {
+            "timestamp": 1368083022000
+        },
+        "lib/uploader/uploader.js": {
+            "timestamp": 1368083022000
+        },
+        "lib/widget/widget.js": {
+            "timestamp": 1368083022000
+        },
+        "test.cmb.js": {
+            "children": [
+                "lib/event/event.js",
+                "lib/widget/widget.js"
+            ],
+            "timestamp": 1368083022000
+        },
+        "test/index.html": {
+            "timestamp": 1368083022000
+        },
+        "test/test_case/gConfig.test.js": {
+            "timestamp": 1368083022000
+        },
+        "test/test_case/localStorage.test.js": {
+            "timestamp": 1368083022000
+        },
+        "test/test_case/uploader.test.js": {
+            "timestamp": 1368083022000
+        },
+        "util/cookie.js": {
+            "timestamp": 1368083022000
+        },
+        "util/storage/localStorage.js": {
+            "timestamp": 1368083022000
+        },
+        "util/url.js": {
+            "timestamp": 1368083022000
+        },
+        "widget/imageUploader/image_uploader.js": {
+            "timestamp": 1368083022000
+        },
+        "widget/imageUploader/loading.gif": {
+            "timestamp": 1368083022000
+        },
+        "widget/imageUploader/test/index.html": {
+            "timestamp": 1368083022000
+        },
+        "widget/imageUploader/test/upload.php": {
+            "timestamp": 1368083022000
+        },
+        "config.js": {
+            "timestamp": 1368610912000
+        }
+    },
+    "cache-expire": 604800000,
+    "rootpaths": [
+        "http://static.gdotjs.org/"
+    ]
+}

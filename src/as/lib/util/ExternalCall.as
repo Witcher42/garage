@@ -5,14 +5,15 @@ package lib.util
     public class ExternalCall {
         public static function Call(callback:String, ... rest):* {
             var escapedRest:Array = new Array();
-            for each (var i:* in rest)
-            {
+            escapedRest.push(EscapeMessage(callback));
+
+            for each (var i:* in rest) {
                 escapedRest.push(EscapeMessage(i));
             }
 
-            return ExternalInterface.call(callback, escapedRest);
-        }
+            return ExternalInterface.call.apply(ExternalInterface, escapedRest);
 
+        }
 
         /* Escapes all the backslashes which are not translated correctly in the Flash -> JavaScript Interface
          *

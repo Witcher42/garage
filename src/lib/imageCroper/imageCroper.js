@@ -3,28 +3,137 @@
 
 // import css
 require('./imageCroper.css');
-
 var $ = require('jquery');
 var Events = require('lib/event/event.js');
+var SWFObject = require('lib/swfobject/swfobject');
 
-module.exports = ImageCroper;
+window.ImageCroper = module.exports = ImageCroper;
+$.extend(ImageCroper, new Events());
+
+
+var defer = $.Deferred();
+
+ImageCroper.flash = defer.promise();
+ImageCroper.instance = {};
 
 function ImageCroper (config) {
     var self = this;
-    obj = $(obj)[0];
-    var obj = $(config.$el)[0];
-    if (obj.tagName === 'IMG') {
-        ImgLoader(obj, function () {
-            self.init(obj, config);
-        });
+    $.extend(this, new Events());
+
+    var $el = self.$el = $(config.$el);
+
+
+    if ($el[0].tagName === 'IMG') {
+        $('<img>')
+            .load(function () {
+                self.width = this.width;
+                self.height = this.height;
+
+                if ($el[0].complete) {
+                    init();
+                } else {
+                    $el.on('load', init);
+                }
+            })
+            .attr('src', $el.attr('src'));
     } else {
-        this.init(obj, config);
+        init();
+    }
+
+    function init () {
+        self.url = $el.attr('src');
+        self.uploadTo = config.uploadTo;
+
+        self.initCroper($el[0], config);
+        ImageCroper.instance[this.url] = self;
+        ImageCroper.flash.done(function () {
+            ImageCroper.callFlash('createImage', self.url, self.uploadTo);
+
+            self.createFlashInstance();
+            self.fetch();
+        });
     }
 }
 
-Events.mixTo(ImageCroper);
+ImageCroper.log = function () {
+    console.log.apply(console, arguments);
+}
 
-ImageCroper.prototype.init = function (obj, opt) {
+ImageCroper.init = function (config) {
+
+    ImageCroper.$flash = $('#__ImageCroper__SWF_CONTAINER');
+    ImageCroper.$flash.css({
+        'position': 'absolute',
+        'top': -10000,
+        'left': -10000
+    });
+};
+
+ImageCroper.flashReady = function () {
+    console.log('flash ready');
+    defer.resolve();
+    this.emit('flash::ready');
+};
+
+ImageCroper.loadPolicyFile = function (url) {
+    ImageCroper.callFlash('loadPolicyFile', [url]);
+}
+
+// Private: callFlash handles function calls made to the Flash element.
+// Calls are made with a setTimeout for some functions to work around
+// bugs in the ExternalInterface library.
+ImageCroper.callFlash = function (functionName, argumentArray) {
+    var returnValue, returnString;
+
+    argumentArray = argumentArray || [];
+
+    // Flash's method if calling ExternalInterface methods (code adapted from MooTools).
+    try {
+        returnString = this.$flash[0].CallFunction('<invoke name="' + functionName + '" returntype="javascript">' + __flash__argumentsToXML(argumentArray, 0) + '</invoke>');
+        returnValue = eval(returnString);
+    } catch (ex) {
+        console.log("Exception calling flash function '" + functionName + "': " + ex.message);
+    }
+
+    // Unescape file post param values
+    if (returnValue != undefined && typeof returnValue.post === "object") {
+        returnValue = this.unescapeFilePostParams(returnValue);
+    }
+
+    return returnValue;
+};
+
+ImageCroper.prototype.reset = function (w, h) {
+    this.callFlash('reset');
+}
+
+ImageCroper.prototype.createFlashInstance = function () {
+    this.callFlash('createInstance');
+};
+
+ImageCroper.prototype.fetch = function () {
+    this.callFlash('fetch');
+};
+
+ImageCroper.prototype.rotate = function (deg) {
+    this.callFlash('rotate', deg);
+}
+
+ImageCroper.prototype.cut = function (x, y, w, h) {
+    this.callFlash('cut', x, y, w, h);
+}
+
+ImageCroper.prototype.upload = function () {
+    this.callFlash('upload', this.uploadTo)
+}
+
+ImageCroper.prototype.callFlash = function (method) {
+    var args = [].slice.call(arguments, 1);
+    console.log([this.url].concat(args));
+    ImageCroper.callFlash(method, [this.url].concat(args));
+}
+
+ImageCroper.prototype.initCroper = function (obj, opt) {
     var self = this;
     var options = $.extend({}, defaultConfig),
         docOffset,
@@ -253,7 +362,6 @@ ImageCroper.prototype.init = function (obj, opt) {
         }
         return trk;
     }
-
 
     // Initialization
     // Sanitize some options
@@ -1575,70 +1683,6 @@ ImageCroper.prototype.init = function (obj, opt) {
 
     $.extend(this, api);
 };
-$.fn.ImageCroper = function (options, callback) {
-    var api;
-    // Iterate over each object, attach Jcrop
-    this.each(function () {
-        var $this = $(this);
-        // If we've already attached to this object
-        if ($this.data('ImageCroper')) {
-            // The API can be requested this way (undocumented)
-            if (options === 'api') {
-                return $this.data('ImageCroper');
-            }
-            // Otherwise, we just reset the options...
-            else {
-                $this.data('ImageCroper').setOptions(options);
-            }
-        }
-        // If we haven't been attached, preload and attach
-        else {
-            $this.css({
-                display: 'block',
-                visibility: 'hidden'
-            });
-            api = new ImageCroper(this, options);
-            if ($.isFunction(callback)) {
-                callback.call(api);
-            }
-        }
-    });
-
-    // Return "this" so the object is chainable (jQuery-style)
-    return this;
-};
-
-// basic image loader
-var ImgLoader = function (imgobj, success, error) {
-    var $img = $(imgobj),
-        img = $img[0];
-
-    function completeCheck() {
-        if (img.complete) {
-            $img.unbind('.jcloader');
-            if ($.isFunction(success)) {
-                success.call(img);
-            }
-        } else {
-            window.setTimeout(completeCheck, 50);
-        }
-    }
-
-    $img
-        .on('load.jcloader', completeCheck)
-        .on('error.jcloader', function () {
-            $img.off('.jcloader');
-            if ($.isFunction(error)) {
-                error.call(img);
-            }
-        });
-
-    if (img.complete && $.isFunction(success)) {
-        $img.off('.jcloader');
-        success.call(img);
-    }
-};
-
 
 // Global Defaults
 var defaultConfig = {
@@ -1689,3 +1733,5 @@ var defaultConfig = {
     onDblClick: function () {},
     onRelease: function () {}
 };
+
+ImageCroper.init();

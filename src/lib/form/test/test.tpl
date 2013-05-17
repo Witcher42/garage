@@ -1,3 +1,5 @@
-<div>
-    <span><%= message%></span>
-</div>
+<ul>
+    <% data.forEach(function (row) { %>
+        <li><%= row.text %></li>
+    <% }); %>
+</ul>

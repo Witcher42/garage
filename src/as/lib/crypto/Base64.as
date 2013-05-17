@@ -1,4 +1,4 @@
-package lib.encode
+package lib.crypto
 {
     import flash.utils.ByteArray;
 

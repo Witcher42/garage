@@ -8,13 +8,55 @@
     <link rel="stylesheet" type="text/css" href="/less/bootstrap/bootstrap.less">
 </head>
 <body>
-<div id="ImageCroper"></div>
-<img src="http://octodex.github.com/images/codercat.jpg" alt="" id="Img" style="height: 500px; width: 500px;">
+<object id="__ImageCroper__SWF_CONTAINER" type="application/x-shockwave-flash" data="../swf/ImageCroper.swf" width="1" height="1">
+    <param name="wmode" value="opaque" />
+    <param name="movie" value="../swf/ImageCroper.swf" />
+    <param name="quality" value="high" />
+    <param name="allowScriptAccess" value="always" />
+    <param name="flashvars" value="" />
+</object>
+<img src="test.jpg" id="Img" alt="">
+<button id="rotate-btn">旋转</button>
+<button id="zoomin-btn">放大</button>
+<button id="zoomout-btn">缩小</button>
 <script>
-G.use(['lib/swfobject/swfobject', 'jquery', '../imageCroper'], function (SWFObject, $, ImageCroper) {
+G.use(['jquery', '../imageCroper'], function ($, ImageCroper) {
     var imageCroper = new ImageCroper({
-        $el: '#Img'
+        $el: '#Img',
+        uploadTo: 'http://image.ganji.com/upload_2.php'
     });
+
+    $('#rotate-btn')
+        .click(function () {
+            imageCroper.rotate(90);
+            imageCroper.upload();
+        });
+
+    imageCroper
+        .on('select', function (pos) {
+            this.cut(pos.x, pos.y, pos.w, pos.h);
+            this.upload();
+            this.reset();
+        });
+
+    ImageCroper
+        .on('flash::ready', function () {
+            console.log('flash ready');
+        })
+        .on('fetched', function (url) {
+            console.log('FETCHED', url);
+        })
+        .on('fetch-fail', function (url) {
+            console.error('FAIL', url);
+        })
+        .on('uploaded', function (url, data) {
+            handleURL(JSON.parse(data)[0].url);
+        })
+
+    function handleURL(url) {
+        console.log('http://image.ganji.com/'+url.slice(0,-4) + '_0-0_7-5.jpg');
+        console.log(url);
+    }
 });
 </script>
 </body>

@@ -1,78 +1,55 @@
 var Validator = require('./validator');
-var EventEmitter = require('lib/event/event');
 var $ = require('jquery');
 
 function Field (config) {
+    var self = this;
+
     this.name   = config.name;
     this.form   = config.form || null;
     this.rules  = config.rules || {};
     this.$el    = $(config.$el);
     this.error = {};
 
-    var disabled = this.$el.is(':disabled');
+    var next = this.$el.data('next');
 
-    this.enable = function () {
-        disabled = false;
-    }
-    this.disable = function () {
-        disabled = true;
-    }
-    this.isDisabled = function () {
-        return disabled;
+    if (next) {
+        this.$el.on('valid.field', function () {
+            self.form.fields[next].validate();
+        });
     }
 }
 
-EventEmitter.mixTo(Field);
+module.exports = Field;
 
-Field.prototype.validate = function (cb, failCb) {
+Field.prototype.validate = function () {
     var self  = this;
     var rules = this.rules;
-    var value = this.val();
-    var r, value, defer, defers = {};
+    var value = this.getValue();
+
     // clean errors
     this.error = {};
-    for (r in rules) {
-        if (rules.hasOwnProperty(r) && Validator[r]) {
-            try {
-                defer = Validator[r].call(this, value, rules[r]);
-                if (defer) {
-                    defers[r] = defer;
-                    break;
-                }
-            } catch (ex) {
-                this.error[r] = ex.message || ex;
-                break;
-            }
-        }
-    }
 
-    if (Object.keys(defers).length) {
-        $.each(defers, function (rule, defer) {
-            defer
-                .done(function () {
-                    self.emit('valid', value);
-                })
-                .fail(function (ex) {
-                    self.emit('error', rule, ex.message || ex);
-                });
+    var defers = $.map(rules, function (setting, name) {
+        return Validator.call(self, name, value, setting[1], setting[0])
+            .fail(function (value, msg) {
+                self.error[name] = msg;
+            })
+    });
+
+    return $.when.apply($, defers)
+        .done(function () {
+            self.$el.trigger('valid.field', self.name);
         })
-        return $.when.apply($, defers);
-    }
-
-    if (!this.isInvalid()) {
-        this.emit('valid', value);
-        return true;
-    } else {
-        this.emit('error', this.errors);
-        return false;
-    }
+        .fail(function () {
+            self.$el.trigger('error.field', [self.name, self.error]);
+        });
 };
 
 Field.prototype.isInvalid = function () {
     return !!Object.keys(this.error).length;
-}
+};
 
-Field.prototype.val = function () {
+Field.prototype.getValue = function () {
     var ret = this.$el.serializeArray().map(function (row) {
         return row.value;
     });
@@ -81,11 +58,9 @@ Field.prototype.val = function () {
         ret = ret[0];
     } else {
         ret = ret.filter(function (row) {
-            return row !== "";
+            return !!row;
         });
     }
 
     return ret;
 };
-
-module.exports = Field;

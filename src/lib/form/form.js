@@ -1,6 +1,4 @@
 var $      = require('jquery');
-var Events = require('lib/event/event.js');
-
 var Field  = require('./field.js');
 
 function Form (config) {
@@ -8,8 +6,6 @@ function Form (config) {
         this.init(config);
     }
 }
-
-Events.mixTo(Form);
 
 Form.prototype.init = function (config) {
     var self = this;
@@ -36,16 +32,6 @@ Form.prototype.init = function (config) {
         });
 
         fields[name] = field;
-
-        field
-            .on('error', function (errors) {
-                self.emit('field::'+name+'::error', errors);
-                self.emit('field::*::error', name, errors);
-            })
-            .on('valid', function () {
-                self.emit('field::'+name+'::valid');
-                self.emit('field::*::valid', name);
-            });
     });
 
     $.each(fields, function (fieldName, field) {
@@ -59,43 +45,62 @@ Form.prototype.init = function (config) {
             })
             .forEach(function (event) {
                 field.$el.on(event, function () {
-                    if (!field.isDisabled() && field.validate() && field.$el.data('next')) {
-                        fields[field.$el.data('next')].validate();
+                    if (!field.$el.is(':disabled')) {
+                        field.validate();
                     }
                 });
             });
     });
 
     $form.on('submit', function (e) {
+        if (!self.validated) {
+            self.validate()
+                .done(function () {
+                    $form.submit();
+                });
+
+            return false;
+        }
+
         if (config.onSubmit) {
-            return config.onSubmit(e);
+            return config.onSubmit.call(self, e);
+        }
+
+        if (!!Object.keys(self.errors).length) {
+            return false;
         }
     });
 };
 
 Form.prototype.validate = function () {
-    var error, name, field;
-    this.errors = {};
+    var self   = this;
+    var defers = {};
 
-    for (name in this.fields) {
+    this.validated = true;
+    this.error = {};
+
+    var deferList = $.map(this.fields, function (field, name) {
         // @TODO: check is disabled
-        field = this.fields[name];
-        if (!field.isDisabled() && !field.validate()) {
-            error = this.fields[name].error;
-            this.errors[name] = error;
-            this.emit('error', name, error);
-        }
-    }
+        if (!field.$el.is(':disabled')) {
+            defers[name] = field.validate()
+                .fail(function () {
+                    self.error[name] = field.error;
+                });
 
-    if (!Object.keys(this.error).length) {
-        this.emit('valid');
-        return true;
-    } else {
-        return false;
-    }
+            return defers[name];
+        }
+    });
+
+    return $.when.call($, deferList)
+        .done(function () {
+            self.$el.trigger('valid.form');
+        })
+        .fail(function () {
+            self.$el.trigger('error.form');
+        });
 };
 
-Form.prototype.val = function () {
+Form.prototype.getValues = function () {
     var data = this.$el.serializeArray();
     var row, ret = {};
     for (var i = data.length - 1; i >= 0; i--) {
